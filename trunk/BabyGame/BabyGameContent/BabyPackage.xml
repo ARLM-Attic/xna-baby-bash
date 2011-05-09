@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+ Copyright 2011 Murray Grant
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!--
+  A Baby Package lets you customise how BabyBashXNA works.
+  You can change the sounds, shapes, backgrounds and colours by creating your own BabyPackage
+  xml file and including it, with your other assets, in a zip (or .babypackage) file.
+  
+  This is the basic process:
+    1. Define "Pools" (ie: collections) of sounds, textures and colours.
+    2. Define some template shapes (including how the shape behaves on screen).
+    3. Connect the BabyBashXNA events to your pools and template shapes using "Actions".
+    4. Have all your assets ready.
+    5. Zip it up into a .zip or .babypackage file.
+    6. Let your baby or toddler enjoy!
+    
+  Important note: all the tags are case sensitive.
+-->
+<BabyPackage 
+  Version="1.0"
+  
+  Author="Murray Grant"
+  Title="Default Package"
+  Description="The default Baby Package."
+  Website="http://babybashxna.codeplex.com">
+  <!-- 
+  Pools are a place to put art and sounds for anything that needs more
+  than one thing (ie: pools are collections of things). You can put individual
+  textures and sounds against the events themselves.
+  -->
+  
+  <!-- 
+      Colour pools. 
+      
+      You can have as many colour pools as you want. 
+      Each one can be used where colours are required (eg: shape templates are the usual place to use them)
+
+      Colours can be defined by Name (from the System.Drawing.KnownColour enumeration) or via an AARRGGBB hex value.
+      Both British and American spellings are accepted for 'Colour' (aka 'Color').
+    -->
+  <ColourPools>
+    <ColourPool Name="Everything">
+      <Colour Name="Red" />
+      <Colour Value="ffffdab9" />
+      <Color Name="Yellow" />
+      <Colour Name="Green" />
+      <Colour Name="Blue" />
+      <Colour Name="Purple" />
+      <Colour Name="Orange" />
+      <Colour Name="Pink" />
+      <Colour Name="SaddleBrown" />
+    </ColourPool>
+    <ColorPool Name="JustBlack">
+      <Colour Name="Black" />
+    </ColorPool>
+  </ColourPools>
+
+  <!-- 
+      Texture pools. 
+      
+      You can have as many texture pools as you want. 
+      Each one can be used with an Action in the events below.
+      
+      Each texture needs a path, which is relative within the zip file.
+      JPEGs and PNGs are supported.
+      
+      Note: BabyBash uses the "reach" XNA profile because it's graphics requirements are meagre. 
+      But this restricts maximum texture size to 2048x2048. Please resize your textures.      
+  -->
+  <TexturePools>
+    <TexturePool Name="Backgrounds">
+      <Texture Path="Textures\20101202_IMG_1410.jpg"/>
+      <Texture Path="Textures\20101204_IMG_1412.jpg"/>
+    </TexturePool>
+    <TexturePool Name="Shapes">
+      <Texture Path="Shapes\Circle Soft Border.png"/>
+      <Texture Path="Shapes\parallelogram Soft Border.png"/>
+      <Texture Path="Shapes\pentagon Soft Border.png"/>
+      <Texture Path="Shapes\rhombus Soft Border.png"/>
+      <Texture Path="Shapes\Square Soft Border.png"/>
+      <Texture Path="Shapes\star Soft Border.png"/>
+      <Texture Path="Shapes\sun Soft Border.png"/>
+      <Texture Path="Shapes\heart Soft Border.png"/>
+      <Texture Path="Shapes\triangle Soft Border.png"/>
+      <Texture Path="Shapes\face Soft Border.png"/>
+    </TexturePool>
+    <!-- The same texture can appear in multiple pools. Memory will be shared between pools. -->
+    <TexturePool Name="OtherShapes">
+      <Texture Path="Shapes\face Soft Border.png"/>
+    </TexturePool>
+  </TexturePools>
+
+
+  <!-- 
+      Sound pools. 
+      
+      You can have as many sound pools as you want. 
+      Each one can be used with an Action in the events below.
+      
+      Each texture needs a path, which is relative within the zip file.
+      WAVs are supported.
+   -->
+  <SoundPools>
+    <SoundPool Name="BabyLaughter">
+      <Sound Path="Sounds\Laughter\Laughter01.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter02.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter03.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter04.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter05.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter06.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter07.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter08.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter09.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter10.mp3"/>
+      <Sound Path="Sounds\Laughter\Laughter11.mp3"/>
+    </SoundPool>
+    <SoundPool Name="BabyTalking">
+      <Sound Path="Sounds\Talking\Talking01.mp3"/>
+      <Sound Path="Sounds\Talking\Talking02.mp3"/>
+      <Sound Path="Sounds\Talking\Talking03.mp3"/>
+      <Sound Path="Sounds\Talking\Talking04.mp3"/>
+      <Sound Path="Sounds\Talking\Talking05.mp3"/>
+      <Sound Path="Sounds\Talking\Talking06.mp3"/>
+      <Sound Path="Sounds\Talking\Talking07.mp3"/>
+      <Sound Path="Sounds\Talking\Talking08.mp3"/>
+      <Sound Path="Sounds\Talking\Talking09.mp3"/>
+      <Sound Path="Sounds\Talking\Talking10.mp3"/>
+      <Sound Path="Sounds\Talking\Talking11.mp3"/>
+      <Sound Path="Sounds\Talking\Talking12.mp3"/>
+      <Sound Path="Sounds\Talking\Talking13.mp3"/>
+      <Sound Path="Sounds\Talking\Talking14.mp3"/>
+      <Sound Path="Sounds\Talking\Talking15.mp3"/>
+      <Sound Path="Sounds\Talking\Talking16.mp3"/>
+      <Sound Path="Sounds\Talking\Talking17.mp3"/>
+      <Sound Path="Sounds\Talking\Talking18.mp3"/>
+      <Sound Path="Sounds\Talking\Talking19.mp3"/>
+      <Sound Path="Sounds\Talking\Talking20.mp3"/>
+      <Sound Path="Sounds\Talking\Talking21.mp3"/>
+      <Sound Path="Sounds\Talking\Talking22.mp3"/>
+      <Sound Path="Sounds\Talking\Talking23.mp3"/>
+      <Sound Path="Sounds\Talking\Talking24.mp3"/>
+      <Sound Path="Sounds\Talking\Talking25.mp3"/>
+      <Sound Path="Sounds\Talking\Talking26.mp3"/>
+      <Sound Path="Sounds\Talking\Talking27.mp3"/>
+      <Sound Path="Sounds\Talking\Talking28.mp3"/>
+      <Sound Path="Sounds\Talking\Talking29.mp3"/>
+      <Sound Path="Sounds\Talking\Talking30.mp3"/>
+      <Sound Path="Sounds\Talking\Talking31.mp3"/>
+      <Sound Path="Sounds\Talking\Talking32.mp3"/>
+      <Sound Path="Sounds\Talking\Talking33.mp3"/>
+    </SoundPool>
+    <SoundPool Name="BabyCrying">
+      <Sound Path="Sounds\Talking\Crying01.mp3"/>
+      <Sound Path="Sounds\Talking\Crying02.mp3"/>
+      <Sound Path="Sounds\Talking\Crying03.mp3"/>
+      <Sound Path="Sounds\Talking\Crying04.mp3"/>
+      <Sound Path="Sounds\Talking\Crying05.mp3"/>
+      <Sound Path="Sounds\Talking\Crying06.mp3"/>
+      <Sound Path="Sounds\Talking\Crying07.mp3"/>
+    </SoundPool>
+    <SoundPool Name="BangAndCrash">
+      <Sound Path="Sounds\Noises\Bang01.mp3"/>
+      <Sound Path="Sounds\Noises\Bang02.mp3"/>
+      <Sound Path="Sounds\Noises\Bang03.mp3"/>
+      <Sound Path="Sounds\Noises\Bang04.mp3"/>
+      <Sound Path="Sounds\Noises\Bang05.mp3"/>
+      <Sound Path="Sounds\Noises\Bang06.mp3"/>
+      <Sound Path="Sounds\Noises\Bang07.mp3"/>
+      <Sound Path="Sounds\Noises\Bang08.mp3"/>
+      <Sound Path="Sounds\Noises\Bang09.mp3"/>
+      <Sound Path="Sounds\Noises\Bang10.mp3"/>
+      <Sound Path="Sounds\Noises\Bang11.mp3"/>
+      <Sound Path="Sounds\Noises\Bang12.mp3"/>
+      <Sound Path="Sounds\Noises\Bang13.mp3"/>
+      <Sound Path="Sounds\Noises\Splash01.mp3"/>
+      <Sound Path="Sounds\Noises\Splash02.mp3"/>
+      <Sound Path="Sounds\Noises\Splash03.mp3"/>
+      <Sound Path="Sounds\Noises\Splash04.mp3"/>
+      <Sound Path="Sounds\Noises\Splash05.mp3"/>
+      <Sound Path="Sounds\Noises\Splash06.mp3"/>
+      <Sound Path="Sounds\Noises\Splash07.mp3"/>
+      <Sound Path="Sounds\Noises\Splash08.mp3"/>
+      <Sound Path="Sounds\Noises\Splash09.mp3"/>
+    </SoundPool>
+    <SoundPool Name="AnalogueController">
+      <Sound Path="Sounds\Talking\Doidoi01.mp3"/>
+      <Sound Path="Sounds\Talking\Doidoi02.mp3"/>
+      <Sound Path="Sounds\Talking\Doidoi03.mp3"/>
+      <Sound Path="Sounds\Talking\Doidoi04.mp3"/>
+    </SoundPool>
+    <SoundPool Name="MouseMovements">
+      <Sound Path="Sounds\Talking\LongTalking01.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking02.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking03.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking04.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking05.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking06.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking07.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking08.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking09.mp3"/>
+      <Sound Path="Sounds\Talking\LongTalking10.mp3"/>
+    </SoundPool>
+    <SoundPool Name="IdleSounds">
+      <Sound Path="Sounds\Adult\Idle01.mp3"/>
+      <Sound Path="Sounds\Adult\Idle02.mp3"/>
+      <Sound Path="Sounds\Adult\Idle03.mp3"/>
+      <Sound Path="Sounds\Adult\Idle04.mp3"/>
+    </SoundPool>
+  </SoundPools>
+
+
+  <!--
+    Shape templates specify the size, timing and colour of shapes that appear on screen.
+    The textures and sounds are joined together with a template with an Action in the events below.
+  -->
+  <ShapeTemplates>
+    <!--
+      Size is the relative size of the shape (where 1 is the size of the screen).
+      SpinTime is the time a shape spins as it appears (in fractional seconds).
+      FadeInTime is the time a shape fades in as it appears (in fractional seconds).
+          One or both of SpinTime and FadeInTime must be zero; they cannot both be used.
+      SolidTime is the time a shape stays on screen before fading out (in fractional seconds).
+      FadeOutTime is the time a shape fades out for before disappearing altogether (in fractional seconds).
+      The total time a shape is on screen is [SpinTime | FadeInTime] + SolidTime + FadeOutTime.
+    -->
+    <ShapeTemplate
+        Name="Keys"
+        Size="0.18"
+        SpinTime="1.0"
+        FadeInTime="0"
+        SolidTime="4.0"
+        FadeOutTime="3.0"
+        />
+    <ShapeTemplate
+      Name="KeyBashing"
+      Size="0.8"
+      SpinTime="0"
+      FadeInTime="0"
+      SolidTime="2.5"
+      FadeOutTime="1.5"
+        />
+    <ShapeTemplate
+      Name="MouseMove"
+      Size="0.03"
+      SpinTime="0"
+      FadeInTime="0"
+      SolidTime="1.5"
+      FadeOutTime="1.0"
+        />
+    <ShapeTemplate
+      Name="ControllerABXY"
+      Size="0.18"
+      SpinTime="1.0"
+      FadeInTime="0"
+      SolidTime="4.0"
+      FadeOutTime="3.0"
+        />
+    <ShapeTemplate
+      Name="ControllerDefault"
+      Size="0.18"
+      SpinTime="1.0"
+      FadeInTime="0"
+      SolidTime="4.0"
+      FadeOutTime="3.0"
+        />
+    <ShapeTemplate
+      Name="ControllerAnalogueShape"
+      Size="0.25"
+      SpinTime="0"
+      FadeInTime="0"
+      SolidTime="15.0"
+      FadeOutTime="3.0"
+        />
+  </ShapeTemplates>
+  
+  <!-- 
+    The background is a colour and an opitonal texture. 
+    BabyBash chooses a colour and texture at random from the items supplied at the start. 
+    Remember, the maximum texture size is 2048x2048.
+   
+    You can assign a Colour or ColourPool and a TexturePath or TexturePool.
+    If you assign nothing, a White background is used.
+  -->
+  <Background Colour="WhiteSmoke" TexturePool="Backgrounds" />
+
+  
+  <!-- 
+    Events are the things that happen in BabyBashXNA.
+    They are the exciting part, where all your hard work above comes together!
+    You assign the various art and sounds to these events to make your BabyPackage different.
+  
+    All events are listed in the default baby package, but if you leave them out of yours
+    they simply won't happen (ie: turn them off by leaving them out).
+  -->
+
+  <!--
+    Actions are how tie events to sounds and textures.
+    Each event can be assigned no actions (to disable the event), one action or (in some cases) many actions.
+    Because Actions are used throughout the events section, they are documented here.
+    
+    The following attributes can be used for any Action:
+    - ShapeTemplate: specifies a shape template. To display a texture, you must have a ShapeTemplate.
+    - TexturePath/TexturePool: specifies one or more textures to be displayed when the event occurs.
+      If no texture is listed, nothing will be displayed.
+    - Colour/ColourPool: specifes the colour of the texture (the American spelling 'Color' is also valid).
+      If no colour is listed, 'White' is used.
+    - SoundPath/SoundPool: specifies one or more sounds are played when the event occurs.
+      If no sound is listed, none will be played.
+
+    Playing too many sounds at once sounds unintelligible and really bad, so BabyBashXNA limits the number
+    of sounds playing at once. A maxium of 3 'Short' sounds and 1 'Long' sound may play at once.
+    Events are divided into two categories:
+    'Short' sounds should be no more than 1 second in duration and are used in a "fire and forget" manner.
+      They are used for button press or mouse click events. 
+    'Long' sounds should be several seconds in duration. Once started they continue to play until an event
+      stops being triggered. They are used for analogue events such as mouse moves and analogue controller inputs.
+    
+    Sounds and Textures are not mutually exclusive. An action may have one, the other, or both.
+
+    The following attribute is valid on some Events (see each event for details).
+    - Key: this keys an Action to a particular button or key press.
+      Most actions require this. They allowable values vary from event to event (eg: keys on your keyboard, mouse buttons, etc).
+      An event cannot have two Actions with the same key.
+      Some events can have a DefaultAction which is used if no other key or button matches.
+  -->
+
+
+  <Events>
+    <!-- The start event occurs once, when the BabyPackage has loaded. -->
+    <Start SoundPath="" />
+
+    <!-- 
+    This occurs whenever a key on the keyboard is pressed. 
+    Key presses are 'short' sound events. 
+    -->
+    <KeyPress>
+      <!-- 
+      LoadFont will load a font which maps to the Keys Enumeration (Microsoft.Xna.Framework.Input.Keys). 
+      The names of the files should map exactly to each of the Keys Enumeration (case insensitive).
+      This is a shortcut to manually specifying every key on the keyboard and mapping individual textures to it.
+      Multiple fonts can be specified, but you will receive errors if two fonts use the same keys.
+      
+      Only the SoundPool/SoundPath and Colour/ColourPool Action tags are valid.
+      Textures are derived from the following tags:
+      Path is a relative path in the BabyPackage to load textures from.
+      FilePrefix is an optional prefix to remove from each file before trying to map to the Keys Enumeration.
+      FileType specifies the extension to use ('png', 'jpeg' and 'jpg' are valid). All files must have the same extension.
+      -->
+      <LoadFont Path="Fonts\Pericles" FilePrefix="" FileType="png" ShapeTemplate="Keys" SoundPool="BabyLaughter" ColourPool="Everything"/>
+
+      <!--
+      Individual keys can be mapped based on the Keys Enumeration (Microsoft.Xna.Framework.Input.Keys).
+      -->
+      <Action Key="Escape" ShapeTemplate="Keys" TexturePool="Shapes" SoundPool="BabyCrying" ColourPool="Everything"/>
+
+      <!-- 
+      If no key from the above font(s) and key(s) match what is pressed, this action is used.
+      -->
+      <DefaultAction ShapeTemplate="Keys" TexturePool="Shapes" SoundPool="BabyTalking" ColourPool="Everything"/>
+    </KeyPress>
+    
+    <!-- 
+    Keybashing is when too many keys are pressed at once. 
+    The number of keys is set in the configuration screen.
+    
+    The standard Action tags apply. There is no valid Key tag.
+    Key bashing is a 'long' sound event.
+
+    When triggered, key bashing removes all shapes from the screen, displays its shape (if configured), 
+    stops all sounds from playing and plays its sound (if configured).
+    
+    If no key bashing event is present in the BabyPackage xml, the game will remove all shapes and sounds.
+    It is highly recommended to define KeyBashing as it will make the game behave unexpectedly without one.
+    -->
+    <KeyBashing ShapeTemplate="KeyBashing" TexturePath="Shapes\No soft border.png" SoundPool="BabyCrying" Colour="Red"/>
+
+    <!-- 
+    This happens when the mouse moves. 
+    The shapes are drawn at the mouse cursor location.
+    
+    The standard Action tags apply. There is no valid Key tag.
+    Mouse movements are a 'long' sound event.
+    -->
+    <MouseMove ShapeTemplate="MouseMove" TexturePath="Shapes\Circle No Border.png" SoundPool="MouseMovements" ColourPool="Everything"/>
+
+    <!-- 
+    This happens when mouse buttons are pressed. 
+    Mouse button presses are a 'short' sound event.
+    -->
+    <MouseButtonPress>
+      <!-- 
+        The standard Action tags apply.
+        This is keyed on the MouseButton Enumeration (MurrayGrant.BabyGame.MouseButton).
+        There are five valid Key values: (Left, Right, Middle, X1, X2).
+        -->
+      <Action Key="Left" SoundPath="Sounds\Adult\Left.mp3"/>
+      <Action Key="Right" SoundPath="Sounds\Adult\Right.mp3"/>
+    </MouseButtonPress>
+
+    <!-- 
+    This happens when the mouse wheel is turned. 
+    Mouse wheel events are a 'short' sound event.
+    -->
+    <MouseWheel>
+      <!-- 
+        The standard Action tags apply.
+        This is keyed on the MouseWheelDirection Enumeration (MurrayGrant.BabyGame.MouseWheelDirection).
+        There are two valid Key values: (Up and Down). Sorry, no DefaultAction here!
+      -->
+      <Action Key="Up" SoundPath="Sounds\Adult\Up.mp3"/>
+      <Action Key="Down" SoundPath="Sounds\Adult\Down.mp3"/>
+    </MouseWheel>
+
+    <!-- 
+    This happens when buttons are pressed on game controllers. 
+    Controller button presses are 'short' sound events.
+    -->
+    <ControllerButtonPress>
+      <!-- 
+        The standard Action tags apply.
+        This is keyed on the ControllerButton Enumeration (MurrayGrant.BabyGame.ControllerButton, a subset of Microsoft.Xna.Framework.Input.Buttons).
+        The valid Key values are: (A, B, X, Y, LeftShoulder, RightShoulder, LeftStick, RightStick, DUp, DDown, DLeft, DRight, Back, Start).
+        
+        Each action applies to all controllers. There is no way to differentiate between controllers if multiple are present.
+      -->
+      <Action Key="A" ShapeTemplate="ControllerABXY" SoundPool="BangAndCrash" TexturePath="Shapes\AButton.png" Colour="White"/>
+      <Action Key="B" ShapeTemplate="ControllerABXY" SoundPool="BangAndCrash" TexturePath="Shapes\BButton.png" Colour="White"/>
+      <Action Key="X" ShapeTemplate="ControllerABXY" SoundPool="BangAndCrash" TexturePath="Shapes\XButton.png" Colour="White"/>
+      <Action Key="Y" ShapeTemplate="ControllerABXY" SoundPool="BangAndCrash" TexturePath="Shapes\YButton.png" Colour="White"/>
+
+      <!-- If no key from the above button(s) match what is pressed, this action is used. -->
+      <DefaultAction ShapeTemplate="ControllerDefault" TexturePool="Shapes" SoundPool="BangAndCrash" ColourPool="Everything"/>
+    </ControllerButtonPress>
+
+    <!-- 
+    This happens when the analogue sticks are moved on game controllers. 
+    Controller analogue movements are 'long' sound events.
+
+    The standard Action tags apply.
+        
+    The controller analogue sticks are handled very differently to any other Action.
+    Analogue sticks, when first moved, create a shape which is moved by the right stick,
+    rotated by the left stick, and grows and shinks based on the two analogue triggers.
+    -->
+    <ControllerAnalogueMove ShapeTemplate="ControllerAnalogueShape" SoundPool="AnalogueController" TexturePath="Shapes\triangle face soft border.png" ColourPool="Everything"/>
+    
+    <!-- 
+    The idle event happens after no activity had happened for a certain time. 
+    The idle event is a 'long' sound event.
+    -->
+    <Idle Timeout="00:01:30" SoundPool="IdleSounds" />
+  </Events>
+</BabyPackage>

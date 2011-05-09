@@ -1,0 +1,50 @@
+Baby Bash XNA
+Copyright 2011 Murray Grant
+http://babybashxna.codeplex.com
+
+This product includes software developed by Murray Grant
+in his own personal time without reference to any
+commercial software he may have worked on.
+
+
+Game concept based on BabySmash by Scott Hanselman
+http://www.hanselman.com/babysmash
+
+XNA Game Development Framework by Microsoft Corporation
+http://create.msdn.com
+
+Shape templates drawn using Microsoft Word by Microsoft Corporation
+http://office.microsoft.com/en-us/word/
+
+Additional artwork done using Paint.NET by Rick Brewster
+http://www.getpaint.net
+
+DajaVu font copyright Bitstream
+http://dejavu-fonts.org
+
+Pericles font included with XNA Game Development Framework
+
+Loading Animation from http://preloaders.net
+
+Menus use Nuclex menu framework by Cygon
+http://nuclexframework.codeplex.com
+
+Portions of low level key lockout code based on work
+by Emma Burrows (c) 2006
+http://www.codeproject.com/KB/system/CSLLKeyboard.aspx
+
+Multi-monitor support based on code by Charlie B
+http://www.carbonatethis.com/archives/121
+
+Zip file support uses the dotnetzip library by Cheeso and Jaans
+http://dotnetzip.codeplex.com
+
+MP3 Decoder based on work by Robert Burke
+http://robburke.net/mle/mp3sharp
+
+Sound editing done using Audacity
+http://audacity.sourceforge.net/
+
+FailedGame exception handling based on code 
+by Nick Gravelyn (c) 2009
+http://blog.nickgravelyn.com/2009/07/a-more-robust-exception-system/

@@ -1,0 +1,1609 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mp3Sharp</name>
+    </assembly>
+    <members>
+        <member name="T:javazoom.jl.decoder.OutputChannels">
+            <summary> A Type-safe representation of the the supported output channel
+            constants. 
+            
+            This class is immutable and, hence, is thread safe. 
+            
+            </summary>
+            <author> 	Mat McGowan 12/12/99 
+            @since	0.0.7
+            
+            </author>
+        </member>
+        <member name="F:javazoom.jl.decoder.OutputChannels.BOTH_CHANNELS">
+            <summary> Flag to indicate output should include both channels. 
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.OutputChannels.LEFT_CHANNEL">
+            <summary> Flag to indicate output should include the left channel only. 
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.OutputChannels.RIGHT_CHANNEL">
+            <summary> Flag to indicate output should include the right channel only. 
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.OutputChannels.DOWNMIX_CHANNELS">
+            <summary> Flag to indicate output is mono. 
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.OutputChannels.fromInt(System.Int32)">
+            <summary> Creates an <code>OutputChannels</code> instance
+            corresponding to the given channel code.
+            
+            </summary>
+            <param name="code">one of the OutputChannels channel code constants.
+            
+            @throws	IllegalArgumentException if code is not a valid
+            channel code. 
+            
+            </param>
+        </member>
+        <member name="P:javazoom.jl.decoder.OutputChannels.ChannelsOutputCode">
+            <summary> Retrieves the code representing the desired output channels.
+            Will be one of LEFT_CHANNEL, RIGHT_CHANNEL, BOTH_CHANNELS
+            or DOWNMIX_CHANNELS.
+            
+            </summary>
+            <returns> the channel code represented by this instance.
+            
+            </returns>
+        </member>
+        <member name="P:javazoom.jl.decoder.OutputChannels.ChannelCount">
+            <summary> Retrieves the number of output channels represented 
+            by this channel output type.
+            
+            </summary>
+            <returns>	The number of output channels for this channel output
+            type. This will be 2 for BOTH_CHANNELS only, and 1
+            for all other types. 
+            
+            </returns>
+        </member>
+        <member name="T:Mp3Sharp.Mp3SharpException">
+            <summary> The Mp3SharpException is the base class for all API-level
+            exceptions thrown by JavaLayer. To facilitate conversion and 
+            common handling of exceptions from other domains, the class 
+            can delegate some functionality to a contained Throwable instance. 
+            </summary>
+            <author>  MDM
+            
+            </author>
+        </member>
+        <member name="T:javazoom.jl.converter.WaveFileObuffer">
+            <summary> Implements an Obuffer by writing the data to
+            a file in RIFF WAVE format. 
+            
+            @since 0.0
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Obuffer">
+            <summary> Base Class for audio output.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.append(System.Int32,System.Int16)">
+            <summary> Takes a 16 Bit PCM sample.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.appendSamples(System.Int32,System.Single[])">
+            <summary> Accepts 32 new PCM samples. 
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.clip(System.Single)">
+            <summary> Clip Sample to 16 Bits
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.write_buffer(System.Int32)">
+            <summary> Write the samples to the file or directly to the audio hardware.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.clear_buffer">
+            <summary> Clears all data in the buffer (for seeking).
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Obuffer.set_stop_flag">
+            <summary> Notify the buffer that the user has stopped the stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFileObuffer.#ctor(System.Int32,System.Int32,System.String)">
+            <summary> Creates a new WareFileObuffer instance. 
+            
+            </summary>
+            <param name="">number_of_channels	
+            The number of channels of audio data
+            this buffer will receive. 
+            
+            </param>
+            <param name="freq	The">sample frequency of the samples in the buffer.
+            
+            </param>
+            <param name="fileName	The">filename to write the data to.
+            
+            </param>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFileObuffer.append(System.Int32,System.Int16)">
+            <summary> Takes a 16 Bit PCM sample.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.converter.WaveFileObuffer.myBuffer">
+            <summary> Write the samples to the file (Random Acces).
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFileObuffer.clear_buffer">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFileObuffer.set_stop_flag">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIDecoder">
+            <summary> Implements decoding of MPEG Audio Layer II frames. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIDecoder">
+            <summary> Implements decoding of MPEG Audio Layer I frames. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.FrameDecoder">
+            <summary> Implementations of FrameDecoder are responsible for decoding
+            an MPEG audio frame.
+            
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.FrameDecoder.decodeFrame">
+            <summary> Decodes one frame of MPEG audio. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIDecoder.Subband">
+            <summary> Abstract base class for subband classes of layer I and II
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1">
+            <summary> Class for layer I subbands in single channel mode.
+            Used for single channel mode
+            and in derived class for intensity stereo mode
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1.#ctor(System.Int32)">
+            <summary> Construtor.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo">
+            <summary> Class for layer I subbands in joint stereo mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo.#ctor(System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1IntensityStereo.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo">
+            <summary> Class for layer I subbands in stereo mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo.#ctor(System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIDecoder.SubbandLayer1Stereo.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2">
+            <summary> Class for layer II subbands in single channel mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.#ctor(System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.get_allocationlength(javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.prepare_sample_reading(javazoom.jl.decoder.Header,System.Int32,System.Int32,System.Single[],System.Int32[],System.Single[],System.Single[])">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.read_scalefactor_selection(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo">
+            <summary> Class for layer II subbands in joint stereo mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.#ctor(System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.read_scalefactor_selection(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2IntensityStereo.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo">
+            <summary> Class for layer II subbands in stereo mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.#ctor(System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.read_allocation(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.read_scalefactor_selection(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Crc16)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.read_scalefactor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.read_sampledata(javazoom.jl.decoder.Bitstream)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIDecoder.SubbandLayer2Stereo.put_next_sample(System.Int32,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.DecoderErrors_Fields">
+            <summary> This interface provides constants describing the error
+            codes used by the Decoder to indicate errors. 
+            
+            </summary>
+            <author> 	MDM
+            
+            </author>
+        </member>
+        <member name="T:javazoom.jl.decoder.Source_Fields">
+            <summary> Work in progress.
+            
+            Class to describe a seekable data source. 
+            
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Header">
+            <summary> Class for extracting information from a frame header.
+            *
+            *
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Header.MPEG2_LSF">
+            <summary> Constant for MPEG-2 LSF version
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Header.MPEG1">
+            <summary> Constant for MPEG-1 version
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.read_header(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Crc16[])">
+            <summary> Read a 32-bit header from the bitstream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.version">
+            <summary> Returns version.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.layer">
+            <summary> Returns Layer ID.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.bitrate_index">
+            <summary> Returns bitrate index.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.sample_frequency">
+            <summary> Returns Sample Frequency.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.frequency">
+            <summary> Returns Frequency.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.mode">
+            <summary> Returns Mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.checksums">
+            <summary> Returns Protection bit.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.copyright">
+            <summary> Returns Copyright.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.original">
+            <summary> Returns Original.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.checksum_ok">
+            <summary> Returns Checksum flag.
+            Compares computed checksum with stream checksum.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.padding">
+            <summary> Returns Layer III Padding bit.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.slots">
+            <summary> Returns Slots.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.mode_extension">
+            <summary> Returns Mode Extension.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.calculate_framesize">
+            <summary> Calculate Frame size.
+            Calculates framesize in bytes excluding header size.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.max_number_of_frames(System.Int32)">
+            <summary> Returns the maximum number of frames in the stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.min_number_of_frames(System.Int32)">
+            <summary> Returns the maximum number of frames in the stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.ms_per_frame">
+            <summary> Returns ms/frame.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.total_ms(System.Int32)">
+            <summary> Returns total ms.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.layer_string">
+            <summary> Return Layer version.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.bitrate_string">
+            <summary> Returns Bitrate.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.sample_frequency_string">
+            <summary> Returns Frequency
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.mode_string">
+            <summary> Returns Mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.version_string">
+            <summary> Returns Version.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.number_of_subbands">
+            <summary> Returns the number of subbands in the current frame.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Header.intensity_stereo_bound">
+            <summary> Returns Intensity Stereo.
+            Layer II joint stereo only).
+            Returns the number of subbands which are in stereo mode,
+            subbands above that limit are in intensity stereo mode.
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Header.SyncHeader">
+            <summary> Returns synchronized header.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.DecoderException">
+            <summary> The <code>DecoderException</code> represents the class of
+            errors that can occur when decoding MPEG audio. 
+            
+            </summary>
+            <author>  MDM
+            
+            </author>
+        </member>
+        <member name="T:javazoom.jl.decoder.Crc16">
+            <summary> 16-Bit CRC checksum
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Crc16.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Crc16.add_bits(System.Int32,System.Int32)">
+            <summary> Feed a bitstring to the crc calculation: length between 0 and 32.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Crc16.checksum">
+            <summary> Return the calculated checksum.
+            Erase it for next calls to add_bits().
+            </summary>
+        </member>
+        <member name="T:Mp3Sharp.Sample">
+            <summary>
+            Some samples that show the use of the Mp3Stream class.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Sample.ReadAllTheWayThroughMp3File">
+            <summary>
+            Sample showing how to read through an MP3 file and obtain its contents as a PCM byte stream.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.JavaLayerHook">
+            <summary> The <code>JavaLayerHooks</code> class allows developers to change
+            the way the JavaLayer library uses Resources. 
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.JavaLayerHook.getResourceAsStream(System.String)">
+            <summary> Retrieves the named resource. This allows resources to be
+            obtained without specifying how they are retrieved. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Control">
+            <summary> Work in progress.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Control.start">
+            <summary> Starts playback of the media presented by this control.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Control.stop">
+            <summary> Stops playback of the media presented by this control.
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Control.Position">
+            <summary> Retrieves the current position.
+            </summary>
+            <summary> 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Equalizer">
+            <summary> The <code>Equalizer</code> class can be used to specify
+            equalization settings for the MPEG audio decoder. 
+            </summary>
+            <remarks>
+            The equalizer consists of 32 band-pass filters. 
+            Each band of the equalizer can take on a fractional value between 
+            -1.0 and +1.0.
+            At -1.0, the input signal is attenuated by 6dB, at +1.0 the signal is
+            amplified by 6dB. 
+            </remarks>
+            <author>  MDM
+            
+            </author>
+        </member>
+        <member name="F:javazoom.jl.decoder.Equalizer.BAND_NOT_PRESENT">
+            <summary> Equalizer setting to denote that a given band will not be
+            present in the output signal.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Equalizer.#ctor">
+            <summary> Creates a new <code>Equalizer</code> instance. 
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Equalizer.reset">
+            <summary> Sets all bands to 0.0
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Equalizer.getBand(System.Int32)">
+            <summary> Retrieves the eq setting for a given band.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Equalizer.getBandFactor(System.Single)">
+            <summary> Converts an equalizer band setting to a sample factor.
+            The factor is determined by the function f = 2^n where
+            n is the equalizer band setting in the range [-1.0,1.0].
+            
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Equalizer.FromEqualizer">
+            <summary> Sets the bands of this equalizer to the value the bands of
+            another equalizer. Bands that are not present in both equalizers are ignored. 
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Equalizer.BandCount">
+            <summary> Retrieves the number of bands present in this equalizer.
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Equalizer.BandFactors">
+            <summary> Retrieves an array of floats whose values represent a
+            scaling factor that can be applied to linear samples
+            in each band to provide the equalization represented by
+            this instance. 
+            
+            </summary>
+            <returns>	an array of factors that can be applied to the
+            subbands.
+            
+            </returns>
+        </member>
+        <member name="M:javazoom.jl.decoder.Equalizer.EQFunction.getBand(System.Int32)">
+            <summary> Returns the setting of a band in the equalizer. 
+            
+            </summary>
+            <param name="band	The">index of the band to retrieve the setting
+            for. 
+            
+            </param>
+            <returns>		the setting of the specified band. This is a value between
+            -1 and +1.
+            
+            </returns>
+        </member>
+        <member name="T:Mp3Sharp.BitstreamException">
+            <summary> Instances of <code>BitstreamException</code> are thrown 
+            when operations on a <code>Bitstream</code> fail. 
+            <p>
+            The exception provides details of the exception condition 
+            in two ways:
+            <ol><li>
+            as an error-code describing the nature of the error
+            </li><br></br><li>
+            as the <code>Throwable</code> instance, if any, that was thrown
+            indicating that an exceptional condition has occurred. 
+            </li></ol></p>
+            
+            @since 0.0.6
+            </summary>
+            <author>  MDM	12/12/99
+            
+            </author>
+        </member>
+        <member name="T:javazoom.jl.decoder.BitReserve">
+            <summary> Implementation of Bit Reservoir for Layer III.
+            <p>
+            The implementation stores single bits as a word in the buffer. If
+            a bit is set, the corresponding word in the buffer will be non-zero.
+            If a bit is clear, the corresponding word is zero. Although this
+            may seem waseful, this can be a factor of two quicker than 
+            packing 8 bits to a byte and extracting. 
+            </p> 
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.BitReserve.BUFSIZE">
+            <summary> Size of the internal buffer to store the reserved bits.
+            Must be a power of 2. And x8, as each bit is stored as a single
+            entry.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.BitReserve.BUFSIZE_MASK">
+            <summary> Mask that can be used to quickly implement the
+            modulus operation on BUFSIZE.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.hsstell">
+            <summary> Return totbit Field.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.hgetbits(System.Int32)">
+            <summary> Read a number bits from the bit stream.
+            </summary>
+            <param name="N">the number of
+            
+            </param>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.hget1bit">
+            <summary> Returns next bit from reserve.
+            </summary>
+            <returns>s 0 if next bit is reset, or 1 if next bit is set.
+            
+            </returns>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.hputbuf(System.Int32)">
+            <summary> Write 8 bits into the bit stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.rewindNbits(System.Int32)">
+            <summary> Rewind N bits in Stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.BitReserve.rewindNbytes(System.Int32)">
+            <summary> Rewind N bytes in Stream.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.converter.WaveFile">
+            <summary> Class allowing WaveFormat Access
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.converter.RiffFile">
+            <summary> Class to manage RIFF files
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.CurrentFileMode">
+            <summary> Return File Mode.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Open(System.String,System.Int32)">
+            <summary> Open a RIFF file.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Open(System.IO.Stream,System.Int32)">
+            <summary> Open a RIFF STREAM.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Write(System.SByte[],System.Int32)">
+            <summary> Write NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Write(System.Int16[],System.Int32)">
+            <summary> Write NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Write(javazoom.jl.converter.RiffFile.RiffChunkHeader,System.Int32)">
+            <summary> Write NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Write(System.Int16,System.Int32)">
+            <summary> Write NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Write(System.Int32,System.Int32)">
+            <summary> Write NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Read(System.SByte[],System.Int32)">
+            <summary> Read NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Expect(System.String,System.Int32)">
+            <summary> Expect NumBytes data.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Close">
+            <summary> Close Riff File.
+            Length is written too.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.CurrentFilePosition">
+            <summary> Return File Position.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Backpatch(System.Int64,javazoom.jl.converter.RiffFile.RiffChunkHeader,System.Int32)">
+            <summary> Write Data to specified offset.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.Seek(System.Int64)">
+            <summary> Seek in the File.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.DDCRET_String(System.Int32)">
+            <summary> Error Messages.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.RiffFile.FourCC(System.String)">
+            <summary> Fill the header.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.#ctor">
+            <summary> Constructs a new WaveFile instance. 
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.OpenForWrite(System.String,System.IO.Stream,System.Int32,System.Int16,System.Int16)">
+            <summary>
+            Pass in either a FileName or a Stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.WriteData(System.Int16[],System.Int32)">
+            <summary> Write 16-bit audio
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.Close">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.OpenForWrite(System.String,javazoom.jl.converter.WaveFile)">
+            <summary> Open for write using another wave file's parameters...
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.converter.WaveFile.CurrentFilePosition">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:Support.SupportClass.CreateNewInstance(System.Type)">
+            <summary>
+            Creates an instance of a received Type
+            </summary>
+            <param name="classType">The Type of the new class instance to return</param>
+            <returns>An Object containing the new instance</returns>
+        </member>
+        <member name="M:Support.SupportClass.HashtableRemove(System.Collections.Hashtable,System.Object)">
+            <summary>
+            Removes the element with the specified key from a Hashtable instance.
+            </summary>
+            <param name="hashtable">The Hashtable instance</param>
+            <param name="key">The key of the element to remove</param>
+            <returns>The element removed</returns>  
+        </member>
+        <member name="M:Support.SupportClass.Identity(System.Int64)">
+            <summary>
+            This method is used as a dummy method to simulate VJ++ behavior
+            </summary>
+            <param name="literal">The literal to return</param>
+            <returns>The received value</returns>
+        </member>
+        <member name="M:Support.SupportClass.Identity(System.UInt64)">
+            <summary>
+            This method is used as a dummy method to simulate VJ++ behavior
+            </summary>
+            <param name="literal">The literal to return</param>
+            <returns>The received value</returns>
+        </member>
+        <member name="M:Support.SupportClass.Identity(System.Single)">
+            <summary>
+            This method is used as a dummy method to simulate VJ++ behavior
+            </summary>
+            <param name="literal">The literal to return</param>
+            <returns>The received value</returns>
+        </member>
+        <member name="M:Support.SupportClass.Identity(System.Double)">
+            <summary>
+            This method is used as a dummy method to simulate VJ++ behavior
+            </summary>
+            <param name="literal">The literal to return</param>
+            <returns>The received value</returns>
+        </member>
+        <member name="M:Support.SupportClass.ReadInput(System.IO.Stream,System.SByte[]@,System.Int32,System.Int32)">
+            <summary>Reads a number of characters from the current source Stream and writes the data to the target array at the specified index.</summary>
+            <param name="sourceStream">The source Stream to read from</param>
+            <param name="target">Contains the array of characteres read from the source Stream.</param>
+            <param name="start">The starting index of the target array.</param>
+            <param name="count">The maximum number of characters to read from the source Stream.</param>
+            <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source Stream.</returns>
+        </member>
+        <member name="M:Support.SupportClass.ReadInput(System.IO.TextReader,System.SByte[]@,System.Int32,System.Int32)">
+            <summary>Reads a number of characters from the current source TextReader and writes the data to the target array at the specified index.</summary>
+            <param name="sourceTextReader">The source TextReader to read from</param>
+            <param name="target">Contains the array of characteres read from the source TextReader.</param>
+            <param name="start">The starting index of the target array.</param>
+            <param name="count">The maximum number of characters to read from the source TextReader.</param>
+            <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source TextReader.</returns>
+        </member>
+        <member name="M:Support.SupportClass.Serialize(System.IO.Stream,System.Object)">
+            <summary>
+            Writes an object to the specified Stream
+            </summary>
+            <param name="stream">The target Stream</param>
+            <param name="objectToSend">The object to be sent</param>
+        </member>
+        <member name="M:Support.SupportClass.Serialize(System.IO.BinaryWriter,System.Object)">
+            <summary>
+            Writes an object to the specified BinaryWriter
+            </summary>
+            <param name="stream">The target BinaryWriter</param>
+            <param name="objectToSend">The object to be sent</param>
+        </member>
+        <member name="M:Support.SupportClass.ToByteArray(System.SByte[])">
+            <summary>
+            Converts an array of sbytes to an array of bytes
+            </summary>
+            <param name="sbyteArray">The array of sbytes to be converted</param>
+            <returns>The new array of bytes</returns>
+        </member>
+        <member name="M:Support.SupportClass.ToByteArray(System.String)">
+            <summary>
+            Converts a string to an array of bytes
+            </summary>
+            <param name="sourceString">The string to be converted</param>
+            <returns>The new array of bytes</returns>
+        </member>
+        <member name="M:Support.SupportClass.GetSBytesFromString(System.String,System.Int32,System.Int32,System.SByte[]@,System.Int32)">
+            <summary>
+            Method that copies an array of sbytes from a String to a received array .
+            </summary>
+            <param name="sourceString">The String to get the sbytes.</param>
+            <param name="sourceStart">Position in the String to start getting sbytes.</param>
+            <param name="sourceEnd">Position in the String to end getting sbytes.</param>
+            <param name="destinationArray">Array to store the bytes.</param>
+            <param name="destinationStart">Position in the destination array to start storing the sbytes.</param>
+            <returns>An array of sbytes</returns>
+        </member>
+        <member name="T:javazoom.jl.decoder.Decoder">
+            <summary> The <code>Decoder</code> class encapsulates the details of
+            decoding an MPEG audio frame. 
+            
+            </summary>
+            <author> 	MDM	
+            </author>
+            <version>  0.0.7 12/12/99
+            @since	0.0.5
+            
+            </version>
+        </member>
+        <member name="F:javazoom.jl.decoder.Decoder.output">
+            <summary> The Obuffer instance that will receive the decoded
+            PCM samples.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Decoder.filter1">
+            <summary> Synthesis filter for the left channel.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Decoder.filter2">
+            <summary> Sythesis filter for the right channel.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Decoder.l3decoder">
+            <summary> The decoder used to decode layer III frames.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Decoder.#ctor">
+            <summary> Creates a new <code>Decoder</code> instance with default 
+            parameters.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Decoder.#ctor(javazoom.jl.decoder.Decoder.Params)">
+            <summary> Creates a new <code>Decoder</code> instance with default 
+            parameters.
+            
+            </summary>
+            <param name="params	The"><code>Params</code> instance that describes
+            the customizable aspects of the decoder.  
+            
+            </param>
+        </member>
+        <member name="M:javazoom.jl.decoder.Decoder.decodeFrame(javazoom.jl.decoder.Header,javazoom.jl.decoder.Bitstream)">
+            <summary> Decodes one frame from an MPEG audio bitstream.
+            
+            </summary>
+            <param name="header		The">header describing the frame to decode.
+            </param>
+            <param name="bitstream		The">bistream that provides the bits for te body of the frame. 
+            
+            </param>
+            <returns> A SampleBuffer containing the decoded samples.
+            
+            </returns>
+        </member>
+        <member name="P:javazoom.jl.decoder.Decoder.OutputBuffer">
+            <summary> Changes the output buffer. This will take effect the next time
+            decodeFrame() is called. 
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Decoder.OutputFrequency">
+            <summary> Retrieves the sample frequency of the PCM samples output
+            by this decoder. This typically corresponds to the sample
+            rate encoded in the MPEG audio stream.
+            
+            </summary>
+            <param name="the">sample rate (in Hz) of the samples written to the
+            output buffer when decoding. 
+            
+            </param>
+        </member>
+        <member name="P:javazoom.jl.decoder.Decoder.OutputChannels">
+            <summary> Retrieves the number of channels of PCM samples output by
+            this decoder. This usually corresponds to the number of
+            channels in the MPEG audio stream, although it may differ.
+            
+            </summary>
+            <returns> The number of output channels in the decoded samples: 1 
+            for mono, or 2 for stereo.
+            
+            
+            </returns>
+        </member>
+        <member name="P:javazoom.jl.decoder.Decoder.OutputBlockSize">
+            <summary> Retrieves the maximum number of samples that will be written to
+            the output buffer when one frame is decoded. This can be used to
+            help calculate the size of other buffers whose size is based upon 
+            the number of samples written to the output buffer. NB: this is
+            an upper bound and fewer samples may actually be written, depending
+            upon the sample rate and number of channels.
+            
+            </summary>
+            <returns> The maximum number of samples that are written to the 
+            output buffer when decoding a single frame of MPEG audio.
+            
+            </returns>
+        </member>
+        <member name="T:javazoom.jl.decoder.Decoder.Params">
+            <summary> The <code>Params</code> class presents the customizable
+            aspects of the decoder. 
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.Decoder.Params.InitialEqualizerSettings">
+            <summary> Retrieves the equalizer settings that the decoder's equalizer
+            will be initialized from./// </summary>
+            <remarks>
+            The <code>Equalizer</code> instance returned 
+            cannot be changed in real time to affect the 
+            decoder output as it is used only to initialize the decoders
+            EQ settings. To affect the decoder's output in realtime,
+            use the Equalizer returned from the getEqualizer() method on
+            the decoder. 
+            </remarks>
+            <returns>	The <code>Equalizer</code> used to initialize the
+            EQ settings of the decoder. 
+            
+            </returns>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIIDecoder">
+            <summary> Class Implementing Layer 3 Decoder.
+            *
+            @since 0.0
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.#ctor(javazoom.jl.decoder.Bitstream,javazoom.jl.decoder.Header,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.SynthesisFilter,javazoom.jl.decoder.Obuffer,System.Int32)">
+            <summary> Constructor.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.seek_notify">
+            <summary> Notify decoder that a seek is being made.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.samples1">
+            <summary> Decode one frame, filling the buffer with the output samples.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.get_side_info">
+            <summary> Reads the side info from the stream, assuming the entire.
+            frame has been read already.
+            Mono   : 136 bits (= 17 bytes)
+            Stereo : 256 bits (= 32 bytes)
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.get_scale_factors(System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.new_slen">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.get_LSF_scale_factors(System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.x">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.i_stereo_k_values(System.Int32,System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.dequantize_sample(System.Single[][],System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.reorder(System.Single[][],System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.is_pos">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.antialias(System.Int32,System.Int32)">
+            <summary>*
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.tsOutCopy">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.do_downmix">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.inv_mdct(System.Single[],System.Single[],System.Int32)">
+            <summary> Fast INV_MDCT.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.reorder(System.Int32[])">
+            <summary> Loads the data for the reorder
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.LayerIIIDecoder.win">
+            <summary>***********************************************************
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIIDecoder.SBI">
+            <summary>********************************************************
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.gr_info_s.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.temporaire.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.III_side_info_t.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.LayerIIIDecoder.temporaire2.#ctor">
+            <summary> Dummy Constructor
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.LayerIIIDecoder.Sftable">
+            <summary>***********************************************************
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.BitstreamErrors_Fields">
+            <summary> This interface describes all error codes that can be thrown 
+            in <code>BistreamException</code>s.
+            
+            </summary>
+            
+            <author> 	MDM		12/12/99
+            @since	0.0.6
+            
+            </author>
+        </member>
+        <member name="T:Mp3Sharp.Mp3Stream">
+            <summary>
+            Provides a view of the sequence of bytes that are produced during the conversion of an MP3 stream
+            into a 16-bit PCM-encoded ("WAV" format) stream.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.#ctor(System.String)">
+            <summary>
+            Creates a new stream instance using the provided filename, and the default chunk size of 4096 bytes.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.#ctor(System.String,Mp3Sharp.SoundFormat)">
+            <summary>
+            Creates a new stream instance using the provided filename and output format.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new stream instance using the provided stream as a source, and the default chunk size of 4096 bytes.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.#ctor(System.IO.Stream,Mp3Sharp.SoundFormat)">
+            <summary>
+            Creates a new stream instance using the provided stream as a source, the default chunk size of 4096 bytes and the specified output format.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.#ctor(System.IO.Stream,System.Int32,Mp3Sharp.SoundFormat)">
+            <summary>
+            Creates a new stream instance using the provided stream as a source.
+            </summary>
+        </member>
+        <member name="F:Mp3Sharp.Mp3Stream.JZDecoder">
+            <summary>
+            Used to interface with javaZoom.
+            </summary>
+        </member>
+        <member name="F:Mp3Sharp.Mp3Stream.JZBitStream">
+            <summary>
+            Used to interface with javaZoom.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Sets the position of the source stream.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.SetLength(System.Int64)">
+            <summary>
+            This method is not valid for an Mp3Stream.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            This method is not valid for an Mp3Stream.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.DecodeFrames(System.Int32)">
+            <summary>
+            Decodes the requested number of frames from the MP3 stream 
+            and caches their PCM-encoded bytes.  These can subsequently be obtained using the Read method.
+            Returns the number of frames that were successfully decoded.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads the MP3 stream as PCM-encoded bytes.  Decodes a portion of the stream if necessary.
+            Returns the number of bytes read.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.Close">
+            <summary>
+            Closes the source stream and releases any associated resources.
+            If you don't call this, you may be leaking file descriptors.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.Mp3Stream.ReadFrame">
+            <summary>
+            Reads a frame from the MP3 stream.  Returns whether the operation was successful.  If it wasn't, 
+            the source stream is probably at its end.
+            </summary>
+        </member>
+        <member name="P:Mp3Sharp.Mp3Stream.Position">
+            <summary>
+            Gets or sets the position of the source stream.  This is relative to the number of bytes in the MP3 file, rather than
+            the total number of PCM bytes (typically signicantly greater) contained in the Mp3Stream's output.
+            </summary>
+        </member>
+        <member name="P:Mp3Sharp.Mp3Stream.Frequency">
+            <summary>
+            Gets the frequency of the audio being decoded.  
+            Initially set to -1.  Initialized during the first call to either of the Read and DecodeFrames methods,
+            and updated during every subsequent call to one of those methods to reflect the most recent header information
+            from the MP3 stream.
+            </summary>
+        </member>
+        <member name="P:Mp3Sharp.Mp3Stream.ChannelCount">
+            <summary>
+            Gets the number of channels available in the audio being decoded.
+            Initially set to -1.  Initialized during the first call to either of the Read and DecodeFrames methods,
+            and updated during every subsequent call to one of those methods to reflect the most recent header information
+            from the MP3 stream.
+            </summary>
+        </member>
+        <member name="P:Mp3Sharp.Mp3Stream.Format">
+            <summary>
+            Gets or sets the PCM output format of this stream.
+            </summary>
+        </member>
+        <member name="T:Mp3Sharp.SoundFormat">
+            <summary>
+            Describes sound formats that can be produced by the Mp3Stream class.
+            </summary>
+        </member>
+        <member name="F:Mp3Sharp.SoundFormat.Pcm16BitMono">
+            <summary>
+            PCM encoded, 16-bit Mono sound format.
+            </summary>
+        </member>
+        <member name="F:Mp3Sharp.SoundFormat.Pcm16BitStereo">
+            <summary>
+            PCM encoded, 16-bit Stereo sound format.
+            </summary>
+        </member>
+        <member name="T:Mp3Sharp.OBuffer16Bit">
+            <summary>
+            Internal class used to queue samples that are being obtained 
+            from an Mp3 stream. This merges the old mp3stream OBuffer with
+            the javazoom SampleBuffer code for the highest efficiency...
+            well, not the highest possible. The highest I'm willing to sweat
+            over. --trs
+            
+            This class handles stereo 16-bit data! Switch it out if you want mono or something.
+            </summary>
+        </member>
+        <member name="M:Mp3Sharp.OBuffer16Bit.Read(System.Byte[],System.Int32,System.Int32)">
+            
+             Copies as much of this buffer as will fit into hte output
+             buffer.
+            
+             \return The amount of bytes copied.
+            
+        </member>
+        <member name="M:Mp3Sharp.OBuffer16Bit.clear_buffer">
+            <summary>
+            This implementation does not clear the buffer. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.SampleBuffer">
+            <summary> The <code>SampleBuffer</code> class implements an output buffer
+            that provides storage for a fixed size block of samples. 
+            
+            
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SampleBuffer.#ctor(System.Int32,System.Int32)">
+            <summary> Constructor
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SampleBuffer.append(System.Int32,System.Int16)">
+            <summary> Takes a 16 Bit PCM sample.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SampleBuffer.write_buffer(System.Int32)">
+            <summary> Write the samples to the file (Random Acces).
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SampleBuffer.clear_buffer">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SampleBuffer.set_stop_flag">
+            <summary>*
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Bitstream">
+            <summary> The <code>Bistream</code> class is responsible for parsing
+            an MPEG audio bitstream.
+            *
+            <b>REVIEW:</b> much of the parsing currently occurs in the
+            various decoders. This should be moved into this class and associated
+            inner classes.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.BUFFER_INT_SIZE">
+            <summary> Maximum size of the frame buffer.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.INITIAL_SYNC">
+            <summary> Syncrhronization control constant for the initial
+            synchronization to the start of a frame.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.STRICT_SYNC">
+            <summary> Syncrhronization control constant for non-iniital frame
+            synchronizations.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.framebuffer">
+            <summary> The frame buffer that holds the data for the current frame.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.framesize">
+            <summary> Number of valid bytes in the frame buffer.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.frame_bytes">
+            <summary> The bytes read from the stream.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.wordpointer">
+            <summary> Index into <code>framebuffer</code> where the next bits are
+            retrieved.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.bitindex">
+            <summary> Number (0-31, from MSB to LSB) of next bit for get_bits()
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.syncword">
+            <summary> The current specified syncword
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.Bitstream.single_ch_mode">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.#ctor(javazoom.jl.decoder.BackStream)">
+            <summary> Construct a IBitstream that reads data from a
+            given InputStream.
+            *
+            </summary>
+            <param name="in	The">InputStream to read from.
+            
+            </param>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.readFrame">
+            <summary> Reads and parses the next frame from the input source.
+            </summary>
+            <returns> the Header describing details of the frame read,
+            or null if the end of the stream has been reached.
+            
+            </returns>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.nextFrame">
+            <summary>*
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.unreadFrame">
+            <summary> Unreads the bytes read from the frame.
+            @throws BitstreamException
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.isSyncCurrentPosition(System.Int32)">
+            <summary> Determines if the next 4 bytes of the stream represent a
+            frame header.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.syncHeader(System.SByte)">
+            <summary> Get next 32 bits from bitstream.
+            They are stored in the headerstring.
+            syncmod allows Synchro flag ID
+            The returned value is False at the end of stream.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.read_frame_data(System.Int32)">
+            <summary> Reads the data for the next frame. The frame is not parsed
+            until parse frame is called.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.parse_frame">
+            <summary> Parses the data previously read with read_frame_data().
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.get_bits(System.Int32)">
+            <summary> Read bits from buffer into the lower bits of an unsigned int.
+            The LSB contains the latest read bit of the stream.
+            number_of_bits between 1 and 16
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.set_syncword(System.Int32)">
+            <summary> Set the word we want to sync the header to.
+            In Big-Endian byte order
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.readFully(System.SByte[],System.Int32,System.Int32)">
+            <summary> Reads the exact number of bytes from the source
+            input stream into a byte array.
+            *
+            </summary>
+            <param name="b		The">byte array to read the specified number
+            of bytes into.
+            </param>
+            <param name="offs	The">index in the array where the first byte
+            read should be stored.
+            </param>
+            <param name="len	the">number of bytes to read.
+            *
+            </param>
+            <exception> BitstreamException is thrown if the specified
+            number of bytes could not be read from the stream.
+            
+            </exception>
+        </member>
+        <member name="M:javazoom.jl.decoder.Bitstream.readBytes(System.SByte[],System.Int32,System.Int32)">
+            <summary> Simlar to readFully, but doesn't throw exception when
+            EOF is reached.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.CircularByteBuffer.#ctor(javazoom.jl.decoder.CircularByteBuffer)">
+            <summary>
+            Initialize by copying the CircularByteBuffer passed in
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.CircularByteBuffer.Push(System.Byte)">
+            <summary>
+            Push a byte into the buffer.  Returns the value of whatever comes off.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.CircularByteBuffer.Pop">
+            <summary>
+            Pop an integer off the start of the buffer. Throws an exception if the buffer is empty (NumValid == 0)
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.CircularByteBuffer.Peek">
+            <summary>
+            Returns what would fall out of the buffer on a Push.  NOT the same as what you'd get with a Pop().
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.CircularByteBuffer.GetRange(System.Int32,System.Int32)">
+            <summary>
+            Returns a range (in terms of Offsets) in an int array in chronological (oldest-to-newest) order. e.g. (3, 0) returns the last four ints pushed, with result[3] being the most recent.
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.CircularByteBuffer.BufferSize">
+            <summary>
+            The physical size of the Buffer (read/write)
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.CircularByteBuffer.Item(System.Int32)">
+            <summary>
+            e.g. Offset[0] is the current value
+            </summary>
+        </member>
+        <member name="P:javazoom.jl.decoder.CircularByteBuffer.NumValid">
+            <summary>
+            How far back it is safe to look (read/write).  Write only to reduce NumValid.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.huffcodetab">
+            <summary> Class to implements Huffman decoder.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.huffcodetab.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[],System.Int32[],System.Int32[][],System.Int32)">
+            <summary> Big Constructor : Computes all Huffman Tables.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.huffcodetab.huffman_decoder(javazoom.jl.decoder.huffcodetab,System.Int32[],System.Int32[],System.Int32[],System.Int32[],javazoom.jl.decoder.BitReserve)">
+            <summary> Do the huffman-decoding.
+            note! for counta,countb -the 4 bit value is returned in y,
+            discard x.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.SynthesisFilter">
+            <summary> A class for the synthesis filter bank.
+            This class does a fast downsampling from 32, 44.1 or 48 kHz to 8 kHz, if ULAW is defined.
+            Frequencies above 4 kHz are removed by ignoring higher subbands.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.#ctor(System.Int32,System.Single,System.Single[])">
+            <summary> Contructor.
+            The scalefactor scales the calculated float pcm samples to short values
+            (raw pcm samples are in [-1.0, 1.0], if no violations occur).
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.reset">
+            <summary> Reset the synthesis filter.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.input_sample(System.Single,System.Int32)">
+            <summary> Inject Sample.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.compute_new_v">
+            <summary> Compute new values via a fast cosine transform.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.compute_new_v_old">
+            <summary> Compute new values via a fast cosine transform.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.SynthesisFilter._tmpOut">
+            <summary> Compute PCM Samples.
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.calculate_pcm_samples(javazoom.jl.decoder.Obuffer)">
+            <summary> Calculate 32 PCM samples and put the into the Obuffer-object.
+            </summary>
+        </member>
+        <member name="F:javazoom.jl.decoder.SynthesisFilter.d16">
+            
+            <summary> d[] split into subarrays of length 16. This provides for
+            more faster access by allowing a block of 16 to be addressed
+            with constant offset. 
+            *
+            </summary>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.load_d">
+            <summary> Loads the data for the d[] from the resource SFd.ser. 
+            </summary>
+            <returns> the loaded values for d[].
+            
+            </returns>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.splitArray(System.Single[],System.Int32)">
+            <summary> Converts a 1D array into a number of smaller arrays. This is used
+            to achieve offset + constant indexing into an array. Each sub-array
+            represents a block of values of the original array. 
+            </summary>
+            <param name="array			The">array to split up into blocks.
+            </param>
+            <param name="blockSize		The">size of the blocks to split the array
+            into. This must be an exact divisor of
+            the length of the array, or some data
+            will be lost from the main array.
+            
+            </param>
+            <returns>	An array of arrays in which each element in the returned
+            array will be of length <code>blockSize</code>.
+            
+            </returns>
+        </member>
+        <member name="M:javazoom.jl.decoder.SynthesisFilter.subArray(System.Single[],System.Int32,System.Int32)">
+            <summary> Returns a subarray of an existing array.
+            
+            </summary>
+            <param name="array	The">array to retrieve a subarra from.
+            </param>
+            <param name="offs	The">offset in the array that corresponds to
+            the first index of the subarray.
+            </param>
+            <param name="len	The">number of indeces in the subarray.
+            </param>
+            <returns> The subarray, which may be of length 0.
+            
+            </returns>
+        </member>
+        <member name="T:javazoom.jl.decoder.JavaLayerErrors_Fields">
+            <summary> Exception erorr codes for components of the JavaLayer API.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.JavaLayerError">
+            <summary> Work in progress.
+            
+            API usage errors may be handled by throwing an instance of this
+            class, as per JMF 2.0. 
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.Manager">
+            <summary> Work in progress.
+            
+            Manages a number of controls.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.JavaLayerUtils">
+            <summary> The JavaLayerUtils class is not strictly part of the JavaLayer API.
+            It serves to provide useful methods and system-wide hooks.
+            
+            </summary>
+            <author>  MDM
+            
+            </author>
+        </member>
+        <member name="P:javazoom.jl.decoder.JavaLayerUtils.Hook">
+            <summary> Sets the system-wide JavaLayer hook.
+            </summary>
+        </member>
+        <member name="T:javazoom.jl.decoder.InputStreamSource">
+            <summary> <i>Work In Progress.</i>
+            
+            An instance of <code>InputStreamSource</code> implements a
+            <code>Source</code> that provides data from an <code>InputStream
+            </code>. Seeking functionality is not supported. 
+            
+            </summary>
+            <author>  MDM
+            
+            </author>
+        </member>
+    </members>
+</doc>

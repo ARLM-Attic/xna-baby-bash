@@ -1,0 +1,7 @@
+Pericles
+192 points
+
+object outline
+width: 22
+softness: 250
+black
