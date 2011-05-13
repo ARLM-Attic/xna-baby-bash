@@ -1,0 +1,2 @@
+BabyGame\BabyGameContent\zip.exe -r9 BabyBashXNA_Source.zip *.* -x BabyGame\BabyGame\bin\* BabyGame\BabyGame\obj\* BabyGame\BabyGame\MurrayGrant.snk BabyGame\BabyGame\BabyGame.csproj.* BabyGame\BabyGameContent\default.babypackage BabyGame\BabyGameContent\bin\* BabyGame\BabyGameContent\obj\* "create code drop.cmd" *.wav BabyGame\lib\DotNetZipLib-v1.9.chm
+pause
